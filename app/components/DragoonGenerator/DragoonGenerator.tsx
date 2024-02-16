@@ -10,54 +10,55 @@ import {
   hornCurrent,
   moustacheCurrent,
   hatBackCurrent,
-} from "~/atoms";
-import { useAtom, SetStateAction } from "jotai";
-import { FC, useState } from "react";
-import DragoonGeneratorSelector from "~/components/DragoonGeneratorSelector/DragoonGeneratorSelector";
-import DragoonPreview from "~/components/DragoonPreview/DragoonPreview";
-import { Form, Link, useTransition } from "@remix-run/react";
-import DragoonPartsPreview from "../DragoonPartsPreview/DragoonPartsPreview";
-import DragoonColourPreview from "../DragoonColourPreview/DragoonColourPreview";
-import DragoonColourSelector from "../DragoonColourSelector/DragoonColourSelector";
-import { framesButton, newColorsButton } from "~/images";
-import { nameBanner, yourMessage } from "~/images/dragoonGenerator/form";
-import DragoonConfirmationModal from "../DragoonConfirmationModal/DragoonConfirmationModal";
-import DragoonGeneratorCreditsModal from "../DragoonGeneratorCreditsModal/DragoonGeneratorCreditsModal";
+} from "~/atoms"
+import { useAtom, SetStateAction } from "jotai"
+import { FC, useState } from "react"
+import DragoonGeneratorSelector from "~/components/DragoonGeneratorSelector/DragoonGeneratorSelector"
+import DragoonPreview from "~/components/DragoonPreview/DragoonPreview"
+import { Form, Link, useTransition } from "@remix-run/react"
+import DragoonPartsPreview from "../DragoonPartsPreview/DragoonPartsPreview"
+import DragoonColourPreview from "../DragoonColourPreview/DragoonColourPreview"
+import DragoonColourSelector from "../DragoonColourSelector/DragoonColourSelector"
+import { framesButton, newColorsButton } from "~/images"
+
+import { nameBanner, yourMessage } from "~/images/dragoonGenerator/form"
+import DragoonConfirmationModal from "../DragoonConfirmationModal/DragoonConfirmationModal"
+import DragoonGeneratorCreditsModal from "../DragoonGeneratorCreditsModal/DragoonGeneratorCreditsModal"
 
 type DragoonGeneratorItem = {
-  item: string;
-  new: boolean;
-};
+  item: string
+  new: boolean
+}
 
 type DragoonGeneratorProps = {
-  clothes: DragoonGeneratorItem[];
-  eyes: DragoonGeneratorItem[];
-  hats: DragoonGeneratorItem[];
-  handItems: DragoonGeneratorItem[];
-  horns: DragoonGeneratorItem[];
-  moustaches: DragoonGeneratorItem[];
-  frames: DragoonGeneratorItem[];
-  hatsBack: DragoonGeneratorItem[];
-};
+  clothes: DragoonGeneratorItem[]
+  eyes: DragoonGeneratorItem[]
+  hats: DragoonGeneratorItem[]
+  handItems: DragoonGeneratorItem[]
+  horns: DragoonGeneratorItem[]
+  moustaches: DragoonGeneratorItem[]
+  frames: DragoonGeneratorItem[]
+  hatsBack: DragoonGeneratorItem[]
+}
 
 const DragoonGenerator: FC<DragoonGeneratorProps> = (props) => {
-  const [clothIndex, setCloth] = useAtom(clothCurrent);
-  const [eyeIndex, setEye] = useAtom(eyeCurrent);
-  const [hatIndex, setHat] = useAtom(hatCurrent);
-  const [handItemIndex, setHandItem] = useAtom(handItemCurrent);
-  const [hornIndex, setHorn] = useAtom(hornCurrent);
-  const [moustacheIndex, setMoustache] = useAtom(moustacheCurrent);
-  const [frameIndex, setFrame] = useAtom(frameCurrent);
-  const [hatBackIndex, setHatBack] = useAtom(hatBackCurrent);
+  const [clothIndex, setCloth] = useAtom(clothCurrent)
+  const [eyeIndex, setEye] = useAtom(eyeCurrent)
+  const [hatIndex, setHat] = useAtom(hatCurrent)
+  const [handItemIndex, setHandItem] = useAtom(handItemCurrent)
+  const [hornIndex, setHorn] = useAtom(hornCurrent)
+  const [moustacheIndex, setMoustache] = useAtom(moustacheCurrent)
+  const [frameIndex, setFrame] = useAtom(frameCurrent)
+  const [hatBackIndex, setHatBack] = useAtom(hatBackCurrent)
 
-  const [currentColor, setCurrentColor] = useAtom(baseColorCurrent);
-  const [backgroundColor, setBackgroundColor] = useAtom(backgroundColorCurrent);
+  const [currentColor, setCurrentColor] = useAtom(baseColorCurrent)
+  const [backgroundColor, setBackgroundColor] = useAtom(backgroundColorCurrent)
 
-  const [selected, setSelected] = useState("clothes");
-  const [isOpen, setIsOpen] = useState(false);
-  const [isCreditsOpen, setIsCreditsOpen] = useState(false);
-  const [author, setAuthor] = useState("");
-  const [message, setMessage] = useState("");
+  const [selected, setSelected] = useState("clothes")
+  const [isOpen, setIsOpen] = useState(false)
+  const [isCreditsOpen, setIsCreditsOpen] = useState(false)
+  const [author, setAuthor] = useState("")
+  const [message, setMessage] = useState("")
 
   const {
     clothes,
@@ -68,33 +69,33 @@ const DragoonGenerator: FC<DragoonGeneratorProps> = (props) => {
     moustaches,
     frames,
     hatsBack,
-  } = props;
-  const cloth = clothes[clothIndex];
-  const eye = eyes[eyeIndex];
-  const hat = hats[hatIndex];
-  const handItem = handItems[handItemIndex];
-  const horn = horns[hornIndex];
-  const moustache = moustaches[moustacheIndex];
-  const frame = frames[frameIndex];
-  const hatBack = hatsBack[hatBackIndex];
+  } = props
+  const cloth = clothes[clothIndex]
+  const eye = eyes[eyeIndex]
+  const hat = hats[hatIndex]
+  const handItem = handItems[handItemIndex]
+  const horn = horns[hornIndex]
+  const moustache = moustaches[moustacheIndex]
+  const frame = frames[frameIndex]
+  const hatBack = hatsBack[hatBackIndex]
 
   const handleReset = () => {
-    setCloth(null);
-    setEye(0);
-    setHat(null);
-    setHatBack(null);
-    setHandItem(null);
-    setHorn(0);
-    setMoustache(null);
-    setFrame(null);
-    setCurrentColor(DEFAULT_COLOR);
-    setBackgroundColor("#ffffff");
-  };
+    setCloth(null)
+    setEye(0)
+    setHat(null)
+    setHatBack(null)
+    setHandItem(null)
+    setHorn(0)
+    setMoustache(null)
+    setFrame(null)
+    setCurrentColor(DEFAULT_COLOR)
+    setBackgroundColor("#ffffff")
+  }
 
   const specialSetHat = (idx: SetStateAction<null>) => {
-    setHat(idx);
-    setHatBack(idx + 1);
-  };
+    setHat(idx)
+    setHatBack(idx + 1)
+  }
 
   const partSetterMap = {
     clothes: setCloth,
@@ -105,9 +106,9 @@ const DragoonGenerator: FC<DragoonGeneratorProps> = (props) => {
     moustaches: setMoustache,
     colour: null,
     frames: setFrame,
-  };
+  }
 
-  const transition = useTransition();
+  const transition = useTransition()
 
   const isOptional = (partName: string): boolean => {
     return [
@@ -117,8 +118,8 @@ const DragoonGenerator: FC<DragoonGeneratorProps> = (props) => {
       "moustaches",
       "frames",
       "hatsBack",
-    ].includes(partName);
-  };
+    ].includes(partName)
+  }
 
   return (
     <>
@@ -387,7 +388,7 @@ const DragoonGenerator: FC<DragoonGeneratorProps> = (props) => {
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default DragoonGenerator;
+export default DragoonGenerator
