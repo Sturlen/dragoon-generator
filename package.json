@@ -15,7 +15,7 @@
     "@remix-run/node": "^1.7.2",
     "@remix-run/react": "^1.7.2",
     "@remix-run/serve": "^1.7.2",
-    "html-to-image": "^1.11.3",
+    "html-to-image": "^1.11.11",
     "jotai": "^1.8.4",
     "react": "^18.2.0",
     "react-color": "^2.19.3",

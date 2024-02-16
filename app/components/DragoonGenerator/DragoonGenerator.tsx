@@ -12,7 +12,7 @@ import {
   hatBackCurrent,
 } from "~/atoms"
 import { useAtom, SetStateAction } from "jotai"
-import { FC, useState } from "react"
+import { FC, useRef, useState } from "react"
 import DragoonGeneratorSelector from "~/components/DragoonGeneratorSelector/DragoonGeneratorSelector"
 import DragoonPreview from "~/components/DragoonPreview/DragoonPreview"
 import { Form, Link, useTransition } from "@remix-run/react"
@@ -24,6 +24,7 @@ import { framesButton, newColorsButton } from "~/images"
 import { nameBanner, yourMessage } from "~/images/dragoonGenerator/form"
 import DragoonConfirmationModal from "../DragoonConfirmationModal/DragoonConfirmationModal"
 import DragoonGeneratorCreditsModal from "../DragoonGeneratorCreditsModal/DragoonGeneratorCreditsModal"
+import { asImage } from "~/utils/download"
 
 type DragoonGeneratorItem = {
   item: string
@@ -120,6 +121,7 @@ const DragoonGenerator: FC<DragoonGeneratorProps> = (props) => {
       "hatsBack",
     ].includes(partName)
   }
+  const ref = useRef<HTMLDivElement>(null)
 
   return (
     <>
@@ -145,7 +147,10 @@ const DragoonGenerator: FC<DragoonGeneratorProps> = (props) => {
       />
       <div className="flex gap-x-8">
         <div className="w-1/4">
-          <div className="w-full m-auto grid grid-cols-1 grid-rows-1 h-min justify-items-center shrink xl:w-3/4 2xl:w-full">
+          <div
+            ref={ref}
+            className="w-full m-auto grid grid-cols-1 grid-rows-1 h-min justify-items-center shrink xl:w-3/4 2xl:w-full"
+          >
             <DragoonPreview
               handItem={handItem?.item}
               hat={hat?.item}
@@ -160,122 +165,23 @@ const DragoonGenerator: FC<DragoonGeneratorProps> = (props) => {
             />
           </div>
 
-          <Form
-            id="dragoonData"
-            method="post"
-            className="flex flex-col m-auto 2xl:py-4"
+          <button
+            type="button"
+            onClick={() => {
+              asImage(ref.current)
+            }}
+            className="w-full px-2 py-2 text-xl text-white bg-purple-500 border-2 border-black border-solid xl:text-2xl rounded-md"
           >
-            <img src={nameBanner} className="py-2 m-auto" />
-            {/*
-            <input
-              id="author"
-              name="author"
-              type="text"
-              required={true}
-              className="px-4 text-2xl border-b-2 border-black 2xl:text-4xl h-max basis-8"
-              maxLength={35}
-              disabled={transition.state === "submitting"}
-              onChange={(e) => setAuthor(e.target.value)}
-            />
-            <label htmlFor="comment" className="m-auto">
-              <img
-                src={yourMessage}
-                className="w-2/3 py-2 m-auto h-2/3 2xl:h-full 2xl:w-full"
-              />
-            </label>
-            <textarea
-              name="comment"
-              id="comment"
-              className="p-4 text-2xl border-2 border-black 2xl:text-4xl basis-52"
-              required={true}
-              maxLength={160}
-              disabled={transition.state === "submitting"}
-              onChange={(e) => setMessage(e.target.value)}
-            ></textarea>
-              */}
-            <input
-              id="hat"
-              name="hat"
-              type="hidden"
-              value={hatIndex === null ? "" : hatIndex + 1}
-            />
-            <input
-              id="hatBack"
-              name="hatBack"
-              type="hidden"
-              value={hatBackIndex === null ? "" : hatBackIndex + 1}
-            />
-            <input
-              id="handItem"
-              name="handItem"
-              type="hidden"
-              value={handItemIndex === null ? "" : handItemIndex + 1}
-            />
-            <input id="eye" name="eye" type="hidden" value={eyeIndex + 1} />
-            <input
-              id="moustache"
-              name="moustache"
-              type="hidden"
-              value={moustacheIndex === null ? "" : moustacheIndex + 1}
-            />
-            <input
-              id="clothes"
-              name="clothes"
-              type="hidden"
-              value={clothIndex === null ? "" : clothIndex + 1}
-            />
-            <input
-              id="frames"
-              name="frames"
-              type="hidden"
-              value={frameIndex === null ? "" : frameIndex + 1}
-            />
-            <input
-              id="horns"
-              name="horns"
-              type="hidden"
-              value={hornIndex + 1}
-            />
-            <input
-              id="baseColor"
-              name="baseColor"
-              type="hidden"
-              value={currentColor}
-            />
-            <input
-              id="backgroundColor"
-              name="backgroundColor"
-              type="hidden"
-              value={backgroundColor}
-            />
-            <div className="flex justify-center h-16 max-w-full gap-8 min-w-fit">
-              <button
-                type="button"
-                form="dragoonData"
-                className="w-1/3 h-full submit-button"
-                // disabled={
-                //   transition.state === "submitting" ||
-                //   author.length === 0 ||
-                //   message.length === 0
-                // }
-                onClick={() => setIsOpen(true)}
-              />
-              <button
-                type="button"
-                onClick={() => handleReset()}
-                className="w-2/5 h-full bg-bottom reset-button"
-                disabled={transition.state === "submitting"}
-              />
-            </div>
-            <Link to="/all" prefetch="intent" className="w-4/5 pt-4 mx-auto">
-              <button
-                type="button"
-                className="w-full px-2 py-2 text-xl text-white bg-purple-500 border-2 border-black border-solid xl:text-2xl rounded-md"
-              >
-                Go to messages
-              </button>
-            </Link>
-          </Form>
+            Download!
+          </button>
+          <div className="pt-4"></div>
+          <button
+            type="button"
+            onClick={handleReset}
+            className="w-full px-2 py-2 text-xl text-white bg-red-500 border-2 border-black border-solid xl:text-2xl rounded-md"
+          >
+            Reset
+          </button>
         </div>
 
         <div
