@@ -2,7 +2,7 @@
   "private": true,
   "sideEffects": false,
   "scripts": {
-    "build": "remix build",
+    "build": "pnpm build:css && remix build",
     "build:css": "npm run generate:css -- --minify",
     "dev": "remix dev",
     "dev:css": "npm run generate:css -- --watch",
