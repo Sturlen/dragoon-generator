@@ -21,7 +21,7 @@ const PreviewTab: FC<TabPreviewProps> = (props) => {
         (isSelected ? "selector-border-selected" : "selector-border")
       }
     >
-      <div className="aspect-square">{children}</div>
+      <div>{children}</div>
       <h2 className="text-center capitalize font-bold select-none">{label}</h2>
     </div>
   )
