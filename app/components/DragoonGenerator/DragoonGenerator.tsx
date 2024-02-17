@@ -109,8 +109,6 @@ const DragoonGenerator: FC<DragoonGeneratorProps> = (props) => {
     frames: setFrame,
   }
 
-  const transition = useTransition()
-
   const isOptional = (partName: string): boolean => {
     return [
       "clothes",
@@ -125,22 +123,6 @@ const DragoonGenerator: FC<DragoonGeneratorProps> = (props) => {
 
   return (
     <>
-      <DragoonConfirmationModal
-        author={author}
-        comment={message}
-        clothes={clothIndex}
-        horns={hornIndex}
-        eye={eyeIndex}
-        handItem={handItemIndex}
-        hat={hatIndex}
-        hatBack={hatBackIndex}
-        moustache={moustacheIndex}
-        frame={frameIndex}
-        baseColor={currentColor}
-        backgroundColor={backgroundColor}
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-      />
       <DragoonGeneratorCreditsModal
         isOpen={isCreditsOpen}
         setIsOpen={setIsCreditsOpen}
@@ -165,23 +147,27 @@ const DragoonGenerator: FC<DragoonGeneratorProps> = (props) => {
             />
           </div>
 
-          <button
-            type="button"
-            onClick={() => {
-              asImage(ref.current)
-            }}
-            className="w-full px-2 py-2 text-xl text-white bg-purple-500 border-2 border-black border-solid xl:text-2xl rounded-md"
-          >
-            Download!
-          </button>
-          <div className="pt-4"></div>
-          <button
-            type="button"
-            onClick={handleReset}
-            className="w-full px-2 py-2 text-xl text-white bg-red-500 border-2 border-black border-solid xl:text-2xl rounded-md"
-          >
-            Reset
-          </button>
+          <div className="flex flex-col pt-4">
+            <button
+              type="button"
+              onClick={() => {
+                asImage(ref.current)
+              }}
+              className="w-full px-2 py-2 text-xl text-white bg-purple-500 border-2 border-black border-solid xl:text-2xl rounded-md"
+            >
+              Download!
+            </button>
+            <div className="pt-4"></div>
+            <button
+              type="button"
+              onClick={() =>
+                confirm("Are you sure you want to reset?") && handleReset()
+              }
+              className="w-full px-2 py-2 text-xl text-white bg-red-500 border-2 border-black border-solid xl:text-2xl rounded-md"
+            >
+              Reset
+            </button>
+          </div>
         </div>
 
         <div

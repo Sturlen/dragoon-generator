@@ -7,19 +7,6 @@ import styles from "~/components/DragoonGenerator/DragoonGenerator.css"
 import DragoonGenerator from "~/components/DragoonGenerator/DragoonGenerator"
 import frames from "~/images/dragoonGenerator/frames"
 
-export async function loader() {
-  return json({
-    clothes: cloth,
-    eyes: eye,
-    handItems: handItem,
-    hats: hat,
-    horns: horn,
-    moustaches: moustache,
-    frames: frames,
-    hatsBack: hatBack,
-  })
-}
-
 export function links() {
   return [
     { rel: "stylesheet", href: styles },
@@ -45,7 +32,17 @@ export function meta() {
 }
 
 export default function Generator() {
-  const viewData = useLoaderData()
+  const viewData = {
+    clothes: cloth,
+    eyes: eye,
+    handItems: handItem,
+    hats: hat,
+    horns: horn,
+    moustaches: moustache,
+    frames: frames,
+    hatsBack: hatBack,
+  }
+  console.log("viewData", viewData)
 
   return (
     <div className="h-screen p-0 bg-purple-300 sm:p-4 2xl:p-8 font-dragoon lg:overflow-hidden">
