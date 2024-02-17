@@ -170,35 +170,25 @@ const DragoonGenerator: FC<DragoonGeneratorProps> = (props) => {
               <DragoonGeneratorSelector imagePath={cloth?.item} />
             </PreviewTab>
             <PreviewTab partName="eyes" label="eyes">
-              <DragoonGeneratorSelector imagePath={cloth?.item} />
+              <DragoonGeneratorSelector imagePath={eye?.item} />
             </PreviewTab>
             <PreviewTab partName="hats" label="hats">
-              <DragoonGeneratorSelector imagePath={cloth?.item} />
+              <DragoonGeneratorSelector imagePath={hat?.item} />
             </PreviewTab>
             <PreviewTab partName="handItems" label="extras">
-              <DragoonGeneratorSelector imagePath={cloth?.item} />
+              <DragoonGeneratorSelector imagePath={handItem?.item} />
             </PreviewTab>
             <PreviewTab partName="horns" label="horns">
-              <DragoonGeneratorSelector imagePath={cloth?.item} />
+              <DragoonGeneratorSelector imagePath={horn.item} />
             </PreviewTab>
             <PreviewTab partName="moustaches" label="moustaches">
-              <DragoonGeneratorSelector imagePath={cloth?.item} />
+              <DragoonGeneratorSelector imagePath={moustache?.item} />
             </PreviewTab>
             <PreviewTab partName="colour" label="colours">
-              <DragoonColourPreview
-                thumbnailPath={newColorsButton}
-                partName="colour"
-                subtitle="colours"
-                selected={selected}
-              />
+              <DragoonColourPreview thumbnailPath={newColorsButton} />
             </PreviewTab>
             <PreviewTab partName="frames" label="frames">
-              <DragoonColourPreview
-                thumbnailPath={framesButton}
-                partName="frames"
-                subtitle="frames"
-                selected={selected}
-              />
+              <DragoonColourPreview thumbnailPath={framesButton} />
             </PreviewTab>
           </div>
           <div className="border-2 border-black bg-white">

@@ -16,12 +16,12 @@ const PreviewTab: FC<TabPreviewProps> = (props) => {
     <div
       onClick={() => setSelected(partName)}
       className={
-        "w-full border-4 grid grid-cols-1 bg-white" +
+        "w-full border-4 flex flex-col grid-cols-1 bg-white " +
         " " +
         (isSelected ? "selector-border-selected" : "selector-border")
       }
     >
-      {children}
+      <div className="aspect-square">{children}</div>
       <h2 className="text-center capitalize font-bold select-none">{label}</h2>
     </div>
   )

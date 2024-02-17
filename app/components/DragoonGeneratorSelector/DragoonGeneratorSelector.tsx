@@ -7,9 +7,6 @@ import DragoonItemPreview from "../DragoonSelector/DragoonSelectorPreview/Dragoo
 type DragoonitemSelectorProps = {
   imagePath: string
   secondaryImagePath?: string
-  partName: string
-  label: string
-  selected: string
 }
 
 const DragoonGeneratorSelector: FC<DragoonitemSelectorProps> = ({
