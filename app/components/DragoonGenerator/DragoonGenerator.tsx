@@ -25,6 +25,8 @@ import { nameBanner, yourMessage } from "~/images/dragoonGenerator/form"
 import DragoonConfirmationModal from "../DragoonConfirmationModal/DragoonConfirmationModal"
 import DragoonGeneratorCreditsModal from "../DragoonGeneratorCreditsModal/DragoonGeneratorCreditsModal"
 import { asImage } from "~/utils/download"
+import { usePartSelector } from "~/hooks/usePartSelector"
+import PreviewTab from "../PreviewTab"
 
 type DragoonGeneratorItem = {
   item: string
@@ -55,7 +57,7 @@ const DragoonGenerator: FC<DragoonGeneratorProps> = (props) => {
   const [currentColor, setCurrentColor] = useAtom(baseColorCurrent)
   const [backgroundColor, setBackgroundColor] = useAtom(backgroundColorCurrent)
 
-  const [selected, setSelected] = useState("clothes")
+  const [selected, setSelected] = usePartSelector()
 
   const {
     clothes,
@@ -163,74 +165,43 @@ const DragoonGenerator: FC<DragoonGeneratorProps> = (props) => {
         </div>
 
         <div className="h-full md:col-span-3">
-          <div className="text-lg grid grid-cols-2 grid-rows-2 lg:grid-cols-8 lg:grid-rows-1 sm:grid-cols-4 sm:grid-rows-2">
-            <div onClick={() => setSelected("clothes")}>
-              <DragoonGeneratorSelector
-                imagePath={cloth?.item}
-                partName="clothes"
-                label="clothes"
-                selected={selected}
-              />
-            </div>
-            <div onClick={() => setSelected("eyes")}>
-              <DragoonGeneratorSelector
-                imagePath={eye.item}
-                partName="eyes"
-                label="eyes"
-                selected={selected}
-              />
-            </div>
-            <div onClick={() => setSelected("hats")}>
-              <DragoonGeneratorSelector
-                imagePath={hat?.item}
-                secondaryImagePath={hatBack}
-                partName="hats"
-                label="hats"
-                selected={selected}
-              />
-            </div>
-            <div onClick={() => setSelected("handItems")}>
-              <DragoonGeneratorSelector
-                imagePath={handItem?.item}
-                partName="handItems"
-                label="extras"
-                selected={selected}
-              />
-            </div>
-            <div onClick={() => setSelected("horns")}>
-              <DragoonGeneratorSelector
-                imagePath={horn.item}
-                partName="horns"
-                label="horns"
-                selected={selected}
-              />
-            </div>
-            <div onClick={() => setSelected("moustaches")}>
-              <DragoonGeneratorSelector
-                imagePath={moustache?.item}
-                partName="moustaches"
-                label="face"
-                selected={selected}
-              />
-            </div>
-            <div onClick={() => setSelected("colour")}>
+          <div className="text-lg grid grid-cols-2 grid-rows-2 lg:grid-cols-8 lg:grid-rows-1 sm:grid-cols-4 sm:grid-rows-2 justify-stretch items-stretch">
+            <PreviewTab partName="clothes" label="clothes">
+              <DragoonGeneratorSelector imagePath={cloth?.item} />
+            </PreviewTab>
+            <PreviewTab partName="eyes" label="eyes">
+              <DragoonGeneratorSelector imagePath={cloth?.item} />
+            </PreviewTab>
+            <PreviewTab partName="hats" label="hats">
+              <DragoonGeneratorSelector imagePath={cloth?.item} />
+            </PreviewTab>
+            <PreviewTab partName="handItems" label="extras">
+              <DragoonGeneratorSelector imagePath={cloth?.item} />
+            </PreviewTab>
+            <PreviewTab partName="horns" label="horns">
+              <DragoonGeneratorSelector imagePath={cloth?.item} />
+            </PreviewTab>
+            <PreviewTab partName="moustaches" label="moustaches">
+              <DragoonGeneratorSelector imagePath={cloth?.item} />
+            </PreviewTab>
+            <PreviewTab partName="colour" label="colours">
               <DragoonColourPreview
                 thumbnailPath={newColorsButton}
                 partName="colour"
                 subtitle="colours"
                 selected={selected}
               />
-            </div>
-            <div onClick={() => setSelected("frames")}>
+            </PreviewTab>
+            <PreviewTab partName="frames" label="frames">
               <DragoonColourPreview
                 thumbnailPath={framesButton}
                 partName="frames"
                 subtitle="frames"
                 selected={selected}
               />
-            </div>
+            </PreviewTab>
           </div>
-          <div className="bg-white">
+          <div className="border-2 border-black bg-white">
             {selected === "colour" ? (
               <DragoonColourSelector />
             ) : (

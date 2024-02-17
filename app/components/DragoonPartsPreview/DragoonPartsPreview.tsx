@@ -1,46 +1,46 @@
-import { FC, useState } from "react";
-import { DEFAULT_COLOR } from "~/atoms";
-import { baseBlackLine, noneSelected, newLabel } from "~/images";
-import DragoonItemBase from "../DragoonSelector/DragoonSelectorBase/DragoonSelectorBase";
-import DragoonItemPreview from "../DragoonSelector/DragoonSelectorPreview/DragoonSelectorPreview";
+import { FC, useState } from "react"
+import { DEFAULT_COLOR } from "~/atoms"
+import { baseBlackLine, noneSelected, newLabel } from "~/images"
+import DragoonItemBase from "../DragoonSelector/DragoonSelectorBase/DragoonSelectorBase"
+import DragoonItemPreview from "../DragoonSelector/DragoonSelectorPreview/DragoonSelectorPreview"
 
 type DragoonPart = {
-  item: string;
-  new: boolean;
-};
+  item: string
+  new: boolean
+}
 
 type DragoonPartsPreviewProps = {
-  images: DragoonPart[];
-  secondaryImages?: string[];
-  setIndex: (idx?: number | null) => void;
-  optional: boolean;
-};
+  images: DragoonPart[]
+  secondaryImages?: string[]
+  setIndex: (idx?: number | null) => void
+  optional: boolean
+}
 
 const DragoonPartsPreview: FC<DragoonPartsPreviewProps> = (props) => {
-  const { images, secondaryImages, setIndex, optional } = props;
-  const [currentPage, setCurrentPage] = useState(1);
-  const PAGE_SIZE = 15;
-  const maxPages = Math.ceil(images.length / PAGE_SIZE);
-  const safeImages = [...images];
-  safeImages.sort((a, b) => (a.new === b.new ? 0 : a.new ? -1 : 1));
+  const { images, secondaryImages, setIndex, optional } = props
+  const [currentPage, setCurrentPage] = useState(1)
+  const PAGE_SIZE = 15
+  const maxPages = Math.ceil(images.length / PAGE_SIZE)
+  const safeImages = [...images]
+  safeImages.sort((a, b) => (a.new === b.new ? 0 : a.new ? -1 : 1))
 
   const imageIndexMap = images.reduce((acc, x, idx) => {
-    acc[x.item] = idx;
-    return acc;
-  }, {});
+    acc[x.item] = idx
+    return acc
+  }, {})
 
   if (optional) {
-    safeImages.unshift({ item: "", new: false });
+    safeImages.unshift({ item: "", new: false })
   }
 
   const slice = safeImages.slice(
     (currentPage - 1) * PAGE_SIZE,
     PAGE_SIZE * currentPage
-  );
+  )
 
   return (
     <>
-      <div className="border-2 border-black">
+      <div>
         <div className="flex flex-row p-2 m-2 justify-items-center">
           {images.length > PAGE_SIZE ? (
             <div
@@ -114,7 +114,7 @@ const DragoonPartsPreview: FC<DragoonPartsPreviewProps> = (props) => {
                     style={{}}
                   />
                 </div>
-              );
+              )
             })}
           </div>
           {images.length > PAGE_SIZE ? (
@@ -136,7 +136,7 @@ const DragoonPartsPreview: FC<DragoonPartsPreviewProps> = (props) => {
         </p>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default DragoonPartsPreview;
+export default DragoonPartsPreview
