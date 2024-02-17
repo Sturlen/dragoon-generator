@@ -56,10 +56,6 @@ const DragoonGenerator: FC<DragoonGeneratorProps> = (props) => {
   const [backgroundColor, setBackgroundColor] = useAtom(backgroundColorCurrent)
 
   const [selected, setSelected] = useState("clothes")
-  const [isOpen, setIsOpen] = useState(false)
-  const [isCreditsOpen, setIsCreditsOpen] = useState(false)
-  const [author, setAuthor] = useState("")
-  const [message, setMessage] = useState("")
 
   const {
     clothes,
@@ -123,15 +119,11 @@ const DragoonGenerator: FC<DragoonGeneratorProps> = (props) => {
 
   return (
     <>
-      <DragoonGeneratorCreditsModal
-        isOpen={isCreditsOpen}
-        setIsOpen={setIsCreditsOpen}
-      />
-      <div className="flex gap-x-8">
-        <div className="w-1/4">
+      <div className="grid w-full grid-cols-1 md:grid-cols-4 h-full gap-4">
+        <div className="h-full p-4">
           <div
             ref={ref}
-            className="w-full m-auto grid grid-cols-1 grid-rows-1 h-min justify-items-center shrink xl:w-3/4 2xl:w-full"
+            className="w-full m-auto grid grid-cols-1 grid-rows-1 h-min justify-items-center shrink"
           >
             <DragoonPreview
               handItem={handItem?.item}
@@ -147,7 +139,7 @@ const DragoonGenerator: FC<DragoonGeneratorProps> = (props) => {
             />
           </div>
 
-          <div className="flex flex-col pt-4">
+          <div className="flex flex-col pt-4 w-full">
             <button
               type="button"
               onClick={() => {
@@ -170,17 +162,8 @@ const DragoonGenerator: FC<DragoonGeneratorProps> = (props) => {
           </div>
         </div>
 
-        <div
-          className="p-4 h-fit w-fit max-h-min"
-          style={{
-            backgroundImage: "url(/backgrounds/generator-rescaled.png)",
-            backgroundSize: "50%",
-          }}
-        >
-          <h2 className="font-sans text-4xl antialiased font-bold">
-            Build your dragoon:
-          </h2>
-          <div className="text-lg grid grid-cols-2 grid-rows-2 sm:grid-cols-7 sm:grid-rows-1 xl:grid-cols-7 xl:grid-rows-1 xl:text-2xl">
+        <div className="h-full md:col-span-3">
+          <div className="text-lg grid grid-cols-2 grid-rows-2 lg:grid-cols-8 lg:grid-rows-1 sm:grid-cols-4 sm:grid-rows-2">
             <div onClick={() => setSelected("clothes")}>
               <DragoonGeneratorSelector
                 imagePath={cloth?.item}
@@ -230,24 +213,24 @@ const DragoonGenerator: FC<DragoonGeneratorProps> = (props) => {
                 selected={selected}
               />
             </div>
-            <div className="grid grid-rows-2 grid-cols-1 xl:gap-4">
-              <div onClick={() => setSelected("colour")}>
-                <DragoonColourPreview
-                  thumbnailPath={newColorsButton}
-                  partName="colour"
-                  selected={selected}
-                />
-              </div>
-              <div onClick={() => setSelected("frames")}>
-                <DragoonColourPreview
-                  thumbnailPath={framesButton}
-                  partName="frames"
-                  selected={selected}
-                />
-              </div>
+            <div onClick={() => setSelected("colour")}>
+              <DragoonColourPreview
+                thumbnailPath={newColorsButton}
+                partName="colour"
+                subtitle="colours"
+                selected={selected}
+              />
+            </div>
+            <div onClick={() => setSelected("frames")}>
+              <DragoonColourPreview
+                thumbnailPath={framesButton}
+                partName="frames"
+                subtitle="frames"
+                selected={selected}
+              />
             </div>
           </div>
-          <div>
+          <div className="bg-white">
             {selected === "colour" ? (
               <DragoonColourSelector />
             ) : (
@@ -261,21 +244,6 @@ const DragoonGenerator: FC<DragoonGeneratorProps> = (props) => {
                 optional={isOptional(selected)}
               ></DragoonPartsPreview>
             )}
-          </div>
-          <div className="pt-3 text-xl xl:text-2xl">
-            Want the selen font for yourself?{" "}
-            <a
-              className="px-4 py-1 text-white bg-purple-500 border-2 border-black border-solid rounded-md"
-              href="/fonts/Selen2-Regular.ttf"
-            >
-              Download here!
-            </a>
-            <button
-              className="float-right px-4 py-1 -mt-1 text-white bg-purple-500 border-2 border-black border-solid rounded-md"
-              onClick={() => setIsCreditsOpen(true)}
-            >
-              Credits
-            </button>
           </div>
         </div>
       </div>

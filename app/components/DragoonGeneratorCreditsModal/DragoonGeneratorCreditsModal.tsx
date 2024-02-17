@@ -1,15 +1,10 @@
-import { Dialog } from "@headlessui/react";
-import { Dispatch, FC, SetStateAction } from "react";
+import { Dialog } from "@headlessui/react"
+import { atom, useAtom } from "jotai"
 
-type DragoonGeneratorCreditsModalProps = {
-  isOpen: boolean;
-  setIsOpen: Dispatch<SetStateAction<boolean>>;
-};
+export const creditsOpen = atom(false)
 
-const DragoonGeneratorCreditsModal: FC<DragoonGeneratorCreditsModalProps> = (
-  props
-) => {
-  const { isOpen, setIsOpen } = props;
+const DragoonGeneratorCreditsModal = () => {
+  const [isOpen, setIsOpen] = useAtom(creditsOpen)
   return (
     <Dialog
       open={isOpen}
@@ -32,7 +27,7 @@ const DragoonGeneratorCreditsModal: FC<DragoonGeneratorCreditsModalProps> = (
         </div>
       </div>
     </Dialog>
-  );
-};
+  )
+}
 
-export default DragoonGeneratorCreditsModal;
+export default DragoonGeneratorCreditsModal
