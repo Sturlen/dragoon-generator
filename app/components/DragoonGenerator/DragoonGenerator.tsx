@@ -57,7 +57,7 @@ const DragoonGenerator: FC<DragoonGeneratorProps> = (props) => {
   const [currentColor, setCurrentColor] = useAtom(baseColorCurrent)
   const [backgroundColor, setBackgroundColor] = useAtom(backgroundColorCurrent)
 
-  const [selected, setSelected] = usePartSelector()
+  const [selected] = usePartSelector()
 
   const {
     clothes,
@@ -105,6 +105,17 @@ const DragoonGenerator: FC<DragoonGeneratorProps> = (props) => {
     moustaches: setMoustache,
     colour: null,
     frames: setFrame,
+  }
+
+  const partMap = {
+    clothes: clothIndex,
+    eyes: eyeIndex,
+    hats: hatIndex,
+    handItems: handItemIndex,
+    horns: hornIndex,
+    moustaches: moustacheIndex,
+    colour: null,
+    frames: frameIndex,
   }
 
   const isOptional = (partName: string): boolean => {
@@ -202,6 +213,8 @@ const DragoonGenerator: FC<DragoonGeneratorProps> = (props) => {
                   selected === "hats" ? props["hatsBack"] : undefined
                 }
                 setIndex={partSetterMap[selected]}
+                selectedTab={selected}
+                selectedIndex={partMap[selected]}
                 optional={isOptional(selected)}
               ></DragoonPartsPreview>
             )}

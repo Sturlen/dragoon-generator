@@ -13,11 +13,20 @@ type DragoonPartsPreviewProps = {
   images: DragoonPart[]
   secondaryImages?: string[]
   setIndex: (idx?: number | null) => void
+  selectedIndex: number | null
+  selectedTab: string
   optional: boolean
 }
 
 const DragoonPartsPreview: FC<DragoonPartsPreviewProps> = (props) => {
-  const { images, secondaryImages, setIndex, optional } = props
+  const {
+    images,
+    secondaryImages,
+    setIndex,
+    optional,
+    selectedIndex,
+    selectedTab,
+  } = props
   const [currentPage, setCurrentPage] = useState(1)
   const PAGE_SIZE = 15
   const maxPages = Math.ceil(images.length / PAGE_SIZE)
@@ -63,7 +72,12 @@ const DragoonPartsPreview: FC<DragoonPartsPreviewProps> = (props) => {
               return image.item === "" ? (
                 <div
                   key="null"
-                  className="outline outline-4 outline-black backdrop-blur-[4px] w-4/6 max-h-fit"
+                  className={
+                    "outline outline-4 backdrop-blur-[4px] w-4/6 max-h-fit" +
+                    (selectedIndex === null
+                      ? " outline-purple-500"
+                      : " outline-black")
+                  }
                   onClick={() => setIndex(null)}
                 >
                   <img
@@ -74,11 +88,15 @@ const DragoonPartsPreview: FC<DragoonPartsPreviewProps> = (props) => {
               ) : (
                 <div
                   key={image.item}
-                  className="grid grid-cols-1 outline outline-4 outline-black backdrop-blur-[4px] w-4/6  max-h-fit"
-                  onClick={() =>
-                    // setIndex(idx - indexOffset + (currentPage - 1) * PAGE_SIZE)
-                    setIndex(imageIndexMap[image.item])
+                  className={
+                    "grid grid-cols-1 outline outline-4  backdrop-blur-[4px] w-4/6  max-h-fit" +
+                    (imageIndexMap[image.item] === selectedIndex
+                      ? " outline-purple-500"
+                      : " outline-black")
                   }
+                  onClick={() => {
+                    setIndex(imageIndexMap[image.item])
+                  }}
                 >
                   {image.new ? (
                     <img
