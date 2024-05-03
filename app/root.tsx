@@ -19,13 +19,13 @@ export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }]
 
 export default function App() {
   return (
-    <html lang="en">
+    <html lang="en" className="h-full font-dragoon">
       <head>
         <Meta />
         <Links />
       </head>
       <body
-        className="bg-purple-300 h-[100vh]"
+        className="bg-purple-300 flex min-h-full flex-col"
         style={{
           backgroundImage: "url(/backgrounds/generator-rescaled.png)",
           backgroundSize: "50%",
